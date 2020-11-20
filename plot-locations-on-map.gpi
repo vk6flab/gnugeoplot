@@ -1,29 +1,10 @@
+#!/usr/bin/gnuplot
 
-# NOTE: Gill Sans is available only on OSX.
-set terminal pdfcairo transparent enhanced font "Gill Sans, 16" linewidth 2 rounded dashed
+set term png size 3840,2160
+set output "locations-on-world-map.png"
 
-# NOTE: Clear Sans is a free font, and is a good alternative to the above.
-# set terminal pdfcairo transparent enhanced font "Clear Sans, 16" linewidth 2 rounded dashed
-
-set style line 80 lc rgb "#404040" lt 1 lw 1
-set border 0 back ls 80
-
-set style line 81 lc rgb "#909090" lt 0 lw 0.4
-set style line 82 lc rgb "#a4a4a4" lt 0 lw 0.2
-
-# NOTE: Grid lines can be distracting on a map.
-# set grid back xtics ytics ls 81, ls 82
-# set grid back ls 81
-
-set tics in
-set xtics nomirror
-set ytics nomirror
-
-# Colors chosen from colorbrewer; print- and photocopy-friendly.
-set style line 1 lt 1 lc rgb "#20808080"   lw 0.5 pt  6 ps 0.5
-set style line 2 lt 1 lc rgb "#99cc0000"   lw 0.1 pt  5 ps 0.3
-
-set key top left
+set style line 1 linetype 1 linecolor rgb "#20808080" linewidth 1 pointtype 0 pointsize 0
+set style line 2 linetype 1 linecolor rgb "#99cc0000" linewidth 4 pointtype 1 pointsize 1
 
 set tmargin 0.5
 set rmargin 1
@@ -36,7 +17,9 @@ unset xtics
 unset ylabel
 unset ytics
 
-set output 'locations-on-world-map.pdf'
-plot 'world-50m.txt' not w l ls 1, \
-     'lat-lng-data.txt' u 3:2 not w p ls 2
+set label "Grid Locations heard by\nAmateur Radio Station, VK6FLAB\nin Perth, Western Australia\n\nhttps://github.com/vk6flab/maidenhead-map" at 87, -25 center font "Clear Sans, 16" front textcolor rgb "#99cc0000"
+
+plot "world-50m.txt" not with lines linestyle 1, \
+	"data.txt" using 2:1 not with points linestyle 2
+
 unset output

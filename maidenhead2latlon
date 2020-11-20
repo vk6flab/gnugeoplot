@@ -1,0 +1,10 @@
+#!/usr/bin/perl -w
+use Ham::Locator;
+my $m = new Ham::Locator;
+if ( $#ARGV == 0 ) {
+	$m->set_loc($ARGV[0]);
+	my ($latitude, $longitude) = $m->loc2latlng;
+	printf("%s %s", $latitude, $longitude);
+} else {
+	print 'Usage: ', $0, ' grid_location', "\n";
+}
